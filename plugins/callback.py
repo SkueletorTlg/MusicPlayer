@@ -30,43 +30,39 @@ from config import Config
 HELP = """
 
 <b>
-Use /play <song name> or use /play as a reply to an audio file or youtube link.
+Utiliza /play <nombre de la canción> o use /play como respuesta a un archivo de audio o enlace de youtube.
 
-Use /yplay to play all the songs of a youtube playlist.
+Utilice /yplay para reproducir todas las canciones de una lista de reproducción de YouTube.
 
-You can also use <code>/splay song name</code> to play a song from Jio Saavn or <code>/splay -a album name</code> to play all the songs from a jiosaavn album or /cplay <channel username or channel id> to play music from a telegram channel.</b>
+También puedes utilizar el comando /cplay <ID de algún canal o @username> para reproducir los audios de ese canal en el chat de voz.
 
-**Common Commands**:
-
-**/play**  Reply to an audio file or YouTube link to play it or use /play <song name>.
-**/splay** Play music from Jio Saavn, Use /splay <song name> or <code>/splay -a album name</code> to play all the songs from that album.
-**/player**  Show current playing song.
-**/upload** Uploads current playing song as audio file.
-**/help** Show help for commands
-**/playlist** Shows the playlist.
-
-**Admin Commands**:
-**/skip** [n] ...  Skip current or n where n >= 2.
-**/cplay** Play music from a channel's music files.
-**/yplay** Play music from a youtube playlist.
-**/join**  Join voice chat.
-**/leave**  Leave current voice chat
-**/shuffle** Shuffle Playlist.
-**/vc**  Check which VC is joined.
-**/stop**  Stop playing.
-**/radio** Start Radio.
-**/stopradio** Stops Radio Stream.
-**/clearplaylist** Clear the playlist.
-**/export** Export current playlist for future use.
-**/import** Import a previously exported playlist.
-**/replay**  Play from the beginning.
-**/clean** Remove unused RAW PCM files.
-**/pause** Pause playing.
-**/resume** Resume playing.
-**/volume** Change volume(0-200).
-**/mute**  Mute in VC.
-**/unmute**  Unmute in VC.
-**/restart**  Update and restarts the Bot.
+🎶 **Comandos para miembros**:
+• **/play**:  Responda a un archivo de audio o enlace de YouTube para reproducirlo o use /play <nombre de la canción>.
+• **/player**:  Mostrar la canción que se está reproduciendo actualmente.
+• **/upload**: Sube la canción que se está reproduciendo actualmente como archivo de audio.
+• **/help**: Mostrar ayuda para los comandos
+• **/playlist**: Muestra la lista de reproducción.
+🎶 **Admin Commands**:
+• **/skip**: Salta la canción actual
+• **/cplay**: Reproduce música de los archivos de música de un canal.
+• **/yplay**: Reproduce música de una lista de reproducción de YouTube.
+• **/join**:  Mete al bot al chat de voz.
+• **/leave**:  Saque al bot del chat de voz actual
+• **/shuffle**: Lista de reproducción aleatoria.
+• **/stop**:  Detiene la música.
+• **/radio**: Inicia la Radio.
+• **/stopradio**: Detiene la radio.
+• **/clearplaylist**: Elimina la playlist
+• **/export**: Exporta la lista de reproducción actual para usarla en el futuro.
+• **/import**: Importa una lista de reproducción exportada anteriormente.
+• **/replay**: Reproduce desde el principio.
+• **/clean**: Elimine los archivos RAW PCM no utilizados.
+• **/pause**: Pausa la música.
+• **/resume**: Reanuda la música
+• **/volume**: Establece el nivel de volumen entre 1 a 200
+• **/mute**:  Silencia el bot en la llamada
+• **/unmute**:  Quita el silencio al bot en la llamada
+• **/restart**:  Actualiza y reinicia el Bot.
 """
 
 
@@ -88,18 +84,18 @@ async def cb_handler(client: Client, query: CallbackQuery):
             return
         group_call.restart_playout()
         if not playlist:
-            pl = f"{emoji.NO_ENTRY} Empty Playlist"
+            pl = f"{emoji.NO_ENTRY} Playlist vacía"
         else:
             if len(playlist)>=25:
                 tplaylist=playlist[:25]
-                pl=f"Listing first 25 songs of total {len(playlist)} songs.\n"
+                pl=f"Lista de las primeras 25 canciones del total de {len (lista de reproducción)} canciones.\n"
                 pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                    f"**{i}**. **🎸{x[1]}**\n   👤**Requested by:** {x[4]}"
+                    f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}"
                     for i, x in enumerate(tplaylist)
                     ])
             else:
                 pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                    f"**{i}**. **🎸{x[1]}**\n   👤**Requested by:** {x[4]}\n"
+                    f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}\n"
                     for i, x in enumerate(playlist)
                 ])
         try:
@@ -109,9 +105,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
                     reply_markup=InlineKeyboardMarkup(
                         [
                             [
-                                InlineKeyboardButton("🔄", callback_data="replay"),
-                                InlineKeyboardButton("⏯", callback_data="pause"),
-                                InlineKeyboardButton("⏩", callback_data="skip")
+                                InlineKeyboardButton("🔄", callback_data="Repetir"),
+                                InlineKeyboardButton("⏯", callback_data="Pause"),
+                                InlineKeyboardButton("⏩", callback_data="Saltar")
                             ],
                         ]
                     )
@@ -126,14 +122,14 @@ async def cb_handler(client: Client, query: CallbackQuery):
             mp.group_call.pause_playout()
             if len(playlist)>=25:
                 tplaylist=playlist[:25]
-                pl=f"Listing first 25 songs of total {len(playlist)} songs.\n"
+                pl=f"Lista de las primeras 25 canciones del total de {len (lista de reproducción)} canciones.\n"
                 pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                    f"**{i}**. **🎸{x[1]}**\n   👤**Requested by:** {x[4]}"
+                    f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}"
                     for i, x in enumerate(tplaylist)
                     ])
             else:
                 pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                    f"**{i}**. **🎸{x[1]}**\n   👤**Requested by:** {x[4]}\n"
+                    f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}\n"
                     for i, x in enumerate(playlist)
                 ])
 
@@ -142,11 +138,11 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 disable_web_page_preview=True,
                 reply_markup=InlineKeyboardMarkup(
                     [
-                        [
-                            InlineKeyboardButton("🔄", callback_data="replay"),
-                            InlineKeyboardButton("⏯", callback_data="resume"),
-                            InlineKeyboardButton("⏩", callback_data="skip")
-                        ],
+                          [
+                                InlineKeyboardButton("🔄", callback_data="Repetir"),
+                                InlineKeyboardButton("⏯", callback_data="Pause"),
+                                InlineKeyboardButton("⏩", callback_data="Saltar")
+                          ],
                     ]
                 )
             )
@@ -160,14 +156,14 @@ async def cb_handler(client: Client, query: CallbackQuery):
             mp.group_call.resume_playout()
             if len(playlist)>=25:
                 tplaylist=playlist[:25]
-                pl=f"Listing first 25 songs of total {len(playlist)} songs.\n"
+                pl=f"Lista de las primeras 25 canciones del total de {len (lista de reproducción)} canciones.\n"
                 pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                    f"**{i}**. **🎸{x[1]}**\n   👤**Requested by:** {x[4]}"
+                    f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}"
                     for i, x in enumerate(tplaylist)
                     ])
             else:
                 pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                    f"**{i}**. **🎸{x[1]}**\n   👤**Requested by:** {x[4]}\n"
+                    f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}\n"
                     for i, x in enumerate(playlist)
                 ])
 
@@ -176,11 +172,11 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 disable_web_page_preview=True,
                 reply_markup=InlineKeyboardMarkup(
                     [
-                        [
-                            InlineKeyboardButton("🔄", callback_data="replay"),
-                            InlineKeyboardButton("⏯", callback_data="pause"),
-                            InlineKeyboardButton("⏩", callback_data="skip")
-                        ],
+                            [
+                                InlineKeyboardButton("🔄", callback_data="Repetir"),
+                                InlineKeyboardButton("⏯", callback_data="Pause"),
+                                InlineKeyboardButton("⏩", callback_data="Saltar")
+                            ],
                     ]
                 )
             )
@@ -194,14 +190,14 @@ async def cb_handler(client: Client, query: CallbackQuery):
             await mp.skip_current_playing()
             if len(playlist)>=25:
                 tplaylist=playlist[:25]
-                pl=f"Listing first 25 songs of total {len(playlist)} songs.\n"
+                pl=f"Lista de las primeras 25 canciones del total de {len (lista de reproducción)} canciones.\n"
                 pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                    f"**{i}**. **🎸{x[1]}**\n   👤**Requested by:** {x[4]}"
+                    f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}"
                     for i, x in enumerate(tplaylist)
-                ])
+                    ])
             else:
                 pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                    f"**{i}**. **🎸{x[1]}**\n   👤**Requested by:** {x[4]}\n"
+                    f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}\n"
                     for i, x in enumerate(playlist)
                 ])
 
@@ -210,11 +206,11 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 disable_web_page_preview=True,
                 reply_markup=InlineKeyboardMarkup(
                     [
-                        [
-                            InlineKeyboardButton("🔄", callback_data="replay"),
-                            InlineKeyboardButton("⏯", callback_data="pause"),
-                            InlineKeyboardButton("⏩", callback_data="skip")
-                        ],
+                            [
+                                InlineKeyboardButton("🔄", callback_data="Repetir"),
+                                InlineKeyboardButton("⏯", callback_data="Pause"),
+                                InlineKeyboardButton("⏩", callback_data="Saltar")
+                            ],
                     ]
                 )
             )
@@ -224,8 +220,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
     elif query.data=="help":
         buttons = [
             [
-                InlineKeyboardButton('⚙️ Update Channel', url='https://t.me/subin_works'),
-                InlineKeyboardButton('🧩 Source', url='https://github.com/subinps/MusicPlayer'),
+              InlineKeyboardButton('🍃 AsA Ecos', url='https://t.me/AsAEcos'),
+              InlineKeyboardButton('👤 Soporte', url='https://t.me/DKzippO'),
             ]
         ]
         reply_markup = InlineKeyboardMarkup(buttons)
