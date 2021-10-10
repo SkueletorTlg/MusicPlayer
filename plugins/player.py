@@ -98,7 +98,7 @@ async def yplay(_, message: Message):
                 type="query"
                 ysearch=query
         else:
-            d=await message.reply_text("You Didn't gave me anything to play. Send me a audio file or reply /play to an audio file.")
+            d=await message.reply_text("No me diste nada para reproducir. Envíeme un archivo de audio o responda /play a un archivo de audio.")
             await mp.delete(d)
             await mp.delete(message)
             return
@@ -106,7 +106,7 @@ async def yplay(_, message: Message):
     group_call = mp.group_call
     if type=="audio":
         if round(m_audio.audio.duration / 60) > DURATION_LIMIT:
-            d=await message.reply_text(f"❌ Audios longer than {DURATION_LIMIT} minute(s) aren't allowed, the provided audio is {round(m_audio.audio.duration/60)} minute(s)")
+            d=await message.reply_text(f"❌ No se permiten audios de más de {DURATION_LIMIT} minuto(s), el audio proporcionado es {round (m_audio.audio.duration/60)} minuto(s)")
             await mp.delete(d)
             await mp.delete(message)
             return
@@ -122,7 +122,7 @@ async def yplay(_, message: Message):
         playlist.append(data)
         if len(playlist) == 1:
             m_status = await message.reply_text(
-                f"{emoji.INBOX_TRAY} Downloading and Processing..."
+                f"{emoji.INBOX_TRAY} Descargando y procesando..."
             )
             await mp.download_audio(playlist[0])
             if 1 in RADIO:
@@ -152,18 +152,18 @@ async def yplay(_, message: Message):
             await m_status.delete()
             print(f"- START PLAYING: {playlist[0][1]}")
         if not playlist:
-            pl = f"{emoji.NO_ENTRY} Empty playlist"
+            pl = f"{emoji.NO_ENTRY} Playlist vacía"
         else:   
             if len(playlist)>=25:
                 tplaylist=playlist[:25]
-                pl=f"Listing first 25 songs of total {len(playlist)} songs.\n"
+                pl=f"Lista de las primeras 25 canciones del total de {len (lista de reproducción)} canciones.\n"
                 pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                    f"**{i}**. **🎸{x[1]}**\n   👤**Requested by:** {x[4]}"
+                    f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}"
                     for i, x in enumerate(tplaylist)
                     ])
             else:
                 pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                    f"**{i}**. **🎸{x[1]}**\n   👤**Requested by:** {x[4]}\n"
+                    f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}\n"
                     for i, x in enumerate(playlist)
                 ])
         if EDIT_TITLE:
@@ -181,18 +181,18 @@ async def yplay(_, message: Message):
 
     if type=="youtube" or type=="query":
         if type=="youtube":
-            msg = await message.reply_text("⚡️ **Fetching Song From YouTube...**")
+            msg = await message.reply_text("⚡️ **Obteniendo canción de YouTube...**")
             url=yturl
         elif type=="query":
             try:
-                msg = await message.reply_text("⚡️ **Fetching Song From YouTube...**")
+                msg = await message.reply_text("⚡️ **Obteniendo canción de YouTube...**")
                 ytquery=ysearch
                 results = YoutubeSearch(ytquery, max_results=1).to_dict()
                 url = f"https://youtube.com{results[0]['url_suffix']}"
                 title = results[0]["title"][:40]
             except Exception as e:
                 await msg.edit(
-                    "Song not found.\nTry inline mode.."
+                    "No se encontró la canción.\nPrueba el modo en línea.."
                 )
                 print(str(e))
                 await mp.delete(message)
@@ -210,7 +210,7 @@ async def yplay(_, message: Message):
         except Exception as e:
             print(e)
             k=await msg.edit(
-                f"YouTube Download Error ❌\nError:- {e}"
+                f"Error de descarga de YouTube ❌\nError:- {e}"
                 )
             print(str(e))
             await mp.delete(message)
@@ -221,10 +221,10 @@ async def yplay(_, message: Message):
         try:
             thumb = info["thumbnail"]
         except:
-            thumb="https://telegra.ph/file/181242eab5c4a74916d01.jpg"
+            thumb="https://telegra.ph/file/a5cd3afd3fa2b27d73861.jpg"
             pass
         if int(duration) > DURATION_LIMIT:
-            k=await message.reply_text(f"❌ Videos longer than {DURATION_LIMIT} minute(s) aren't allowed, the provided video is {duration} minute(s)")
+            k=await message.reply_text(f"❌ No se permiten videos de más de {DURATION_LIMIT} minuto(s), el video proporcionado es de {duración} minuto(s)")
             await mp.delete(k)
             await mp.delete(message)
             return
@@ -237,7 +237,7 @@ async def yplay(_, message: Message):
         client = group_call.client
         if len(playlist) == 1:
             m_status = await msg.edit(
-                f"{emoji.INBOX_TRAY} Downloading and Processing..."
+                f"{emoji.INBOX_TRAY} Descargando y procesando..."
             )
             await mp.download_audio(playlist[0])
             if 1 in RADIO:
@@ -265,22 +265,22 @@ async def yplay(_, message: Message):
             )
 
             await m_status.delete()
-            print(f"- START PLAYING: {playlist[0][1]}")
+            print(f"- Reproduciendo: {playlist[0][1]}")
         else:
             await msg.delete()
         if not playlist:
-            pl = f"{emoji.NO_ENTRY} Empty playlist"
+            pl = f"{emoji.NO_ENTRY} Playlist vacía"
         else:
             if len(playlist)>=25:
                 tplaylist=playlist[:25]
-                pl=f"Listing first 25 songs of total {len(playlist)} songs.\n"
+                pl=f"Lista de las primeras 25 canciones del total de {len (lista de reproducción)} canciones.\n"
                 pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                    f"**{i}**. **🎸{x[1]}**\n   👤**Requested by:** {x[4]}"
+                    f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}"
                     for i, x in enumerate(tplaylist)
                     ])
             else:
                 pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                    f"**{i}**. **🎸{x[1]}**\n   👤**Requested by:** {x[4]}\n"
+                    f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}\n"
                     for i, x in enumerate(playlist)
                 ])
         if EDIT_TITLE:
@@ -320,14 +320,14 @@ async def deezer(_, message):
             query=text[1]
             album=None
     else:
-        k=await message.reply_text("You Didn't gave me anything to play use /splay <song name>")
+        k=await message.reply_text("No me diste nada para reproducir, usa / splay <nombre de la canción>")
         await mp.delete(k)
         await mp.delete(message)
         return
     user=f"[{message.from_user.first_name}](tg://user?id={message.from_user.id})"
     group_call = mp.group_call
     if album:
-        msg = await message.reply("⚡️ **Fetching Album From JioSaavn...**")
+        msg = await message.reply("⚡️ **Obteniendo álbum de JioSaavn...**")
         try:
             p = f"https://jiosaavn-api.vercel.app/albumsearch?query={album}"
             n = requests.get(p)
@@ -343,7 +343,7 @@ async def deezer(_, message):
                 try:
                     thumb=song.get("image")
                 except:
-                    thumb="https://telegra.ph/file/181242eab5c4a74916d01.jpg"
+                    thumb="https://telegra.ph/file/a5cd3afd3fa2b27d73861.jpg"
                     pass
                 GET_THUMB[url] = thumb
                 now = datetime.now()
@@ -377,7 +377,7 @@ async def deezer(_, message):
                         DEFAULT_DOWNLOAD_DIR,
                         f"{file}.raw"
                     )
-                    print(f"- START PLAYING: {playlist[0][1]}")
+                    print(f"- Reprodiciéndo: {playlist[0][1]}")
                     
                     if EDIT_TITLE:
                         await mp.edit_title()
@@ -387,18 +387,18 @@ async def deezer(_, message):
             await msg.delete()
             if not playlist:
                 await mp.start_radio()
-                pl = f"{emoji.NO_ENTRY} Empty playlist"
+                pl = f"{emoji.NO_ENTRY} Playlist vacía"
             else:
                 if len(playlist)>=25:
                     tplaylist=playlist[:25]
-                    pl=f"Listing first 25 songs of total {len(playlist)} songs.\n"
+                    pl=f"Lista de las primeras 25 canciones del total de {len (lista de reproducción)} canciones.\n"
                     pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                        f"**{i}**. **🎸{x[1]}**\n   👤**Requested by:** {x[4]}"
+                        f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}"
                         for i, x in enumerate(tplaylist)
                         ])
                 else:
                     pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                        f"**{i}**. **🎸{x[1]}**\n   👤**Requested by:** {x[4]}\n"
+                        f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}\n"
                         for i, x in enumerate(playlist)
                     ])
             if message.chat.type == "private":
@@ -410,13 +410,13 @@ async def deezer(_, message):
                 await mp.delete(k)
             await mp.delete(message)
         except Exception as e:
-            k=await msg.edit("Could not find that album.")
+            k=await msg.edit("No se pudo encontrar ese álbum.")
             print(e)
             await mp.delete(k)
             await mp.delete(message)
             pass
     else:
-        msg = await message.reply("⚡️ **Fetching Song From JioSaavn...**")
+        msg = await message.reply("⚡️ **Obteniendo canción de JioSaavn...**")
         try:
             p = f"https://jiosaavn-api.vercel.app/search?query={query}"
             n = requests.get(p)
@@ -430,11 +430,11 @@ async def deezer(_, message):
             try:
                 thumb=a.get("image")
             except:
-                thumb="https://telegra.ph/file/181242eab5c4a74916d01.jpg"
+                thumb="https://telegra.ph/file/a5cd3afd3fa2b27d73861.jpg"
                 pass
             GET_THUMB[url] = thumb
         except:
-            k=await msg.edit("No results found")
+            k=await msg.edit("No se encontraron resultados")
             await mp.delete(k)
             await mp.delete(message)
             return
@@ -446,7 +446,7 @@ async def deezer(_, message):
         client = group_call.client
         if len(playlist) == 1:
             m_status = await msg.edit(
-                f"{emoji.INBOX_TRAY} Downloading and Processing..."
+                f"{emoji.INBOX_TRAY} Descargando y procesando..."
             )
             await mp.download_audio(playlist[0])
             if 1 in RADIO:
@@ -473,22 +473,22 @@ async def deezer(_, message):
                 f"{file}.raw"
             )
             await m_status.delete()
-            print(f"- START PLAYING: {playlist[0][1]}")
+            print(f"- Reproduciendo: {playlist[0][1]}")
         else:
             await msg.delete()
         if not playlist:
-            pl = f"{emoji.NO_ENTRY} Empty playlist"
+            pl = f"{emoji.NO_ENTRY} Playlist vacía"
         else:
             if len(playlist)>=25:
                 tplaylist=playlist[:25]
-                pl=f"Listing first 25 songs of total {len(playlist)} songs.\n"
+                pl=f"Lista de las primeras 25 canciones del total de {len (lista de reproducción)} canciones.\n"
                 pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                    f"**{i}**. **🎸{x[1]}**\n   👤**Requested by:** {x[4]}"
+                    f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}"
                     for i, x in enumerate(tplaylist)
                     ])
             else:
                 pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                    f"**{i}**. **🎸{x[1]}**\n   👤**Requested by:** {x[4]}\n"
+                    f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}\n"
                     for i, x in enumerate(playlist)
                 ])
         if message.chat.type == "private":
@@ -508,23 +508,23 @@ async def deezer(_, message):
 @Client.on_message(filters.command(["player", f"player@{U}"]) & (filters.chat(CHAT) | filters.private))
 async def player(_, m: Message):
     if not playlist:
-        k=await m.reply_text(f"{emoji.NO_ENTRY} No songs are playing")
+        k=await m.reply_text(f"{emoji.NO_ENTRY} No hay canciones sonando")
         await mp.delete(k)
         await mp.delete(m)
         return
     else:
         if len(playlist)>=25:
             tplaylist=playlist[:25]
-            pl=f"Listing first 25 songs of total {len(playlist)} songs.\n"
-            pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                f"**{i}**. **🎸{x[1]}**\n   👤**Requested by:** {x[4]}"
-                for i, x in enumerate(tplaylist)
+                pl=f"Lista de las primeras 25 canciones del total de {len (lista de reproducción)} canciones.\n"
+                pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
+                    f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}"
+                    for i, x in enumerate(tplaylist)
+                    ])
+            else:
+                pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
+                    f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}\n"
+                    for i, x in enumerate(playlist)
                 ])
-        else:
-            pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                f"**{i}**. **🎸{x[1]}**\n   👤**Requested by:** {x[4]}\n"
-                for i, x in enumerate(playlist)
-            ])
     if m.chat.type == "private":
         await m.reply_text(
             pl,
@@ -533,9 +533,9 @@ async def player(_, m: Message):
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton("🔄", callback_data="replay"),
-                        InlineKeyboardButton("⏯", callback_data="pause"),
-                        InlineKeyboardButton("⏩", callback_data="skip")
+                        InlineKeyboardButton("🔄", callback_data="Repetir"),
+                        InlineKeyboardButton("⏯", callback_data="Pausar"),
+                        InlineKeyboardButton("⏩", callback_data="saltar")
                     
                     ],
 
@@ -552,9 +552,9 @@ async def player(_, m: Message):
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton("🔄", callback_data="replay"),
-                        InlineKeyboardButton("⏯", callback_data="pause"),
-                        InlineKeyboardButton("⏩", callback_data="skip")
+                        InlineKeyboardButton("🔄", callback_data="Repetir"),
+                        InlineKeyboardButton("⏯", callback_data="Pausar"),
+                        InlineKeyboardButton("⏩", callback_data="saltar")
                     
                     ],
 
@@ -567,25 +567,25 @@ async def player(_, m: Message):
 async def skip_track(_, m: Message):
     group_call = mp.group_call
     if not group_call.is_connected:
-        k=await m.reply("Nothing Playing")
+        k=await m.reply("No hay nada reproduciéndose")
         await mp.delete(k)
         await mp.delete(m)
         return
     if len(m.command) == 1:
         await mp.skip_current_playing()
         if not playlist:
-            pl = f"{emoji.NO_ENTRY} Empty playlist"
+            pl = f"{emoji.NO_ENTRY} Playlist vacía"
         else:
             if len(playlist)>=25:
                 tplaylist=playlist[:25]
-                pl=f"Listing first 25 songs of total {len(playlist)} songs.\n"
+                pl=f"Lista de las primeras 25 canciones del total de {len (lista de reproducción)} canciones.\n"
                 pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                    f"**{i}**. **🎸{x[1]}**\n   👤**Requested by:** {x[4]}"
+                    f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}"
                     for i, x in enumerate(tplaylist)
                     ])
             else:
                 pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                    f"**{i}**. **🎸{x[1]}**\n   👤**Requested by:** {x[4]}\n"
+                    f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}\n"
                     for i, x in enumerate(playlist)
                 ])
         if m.chat.type == "private":
@@ -607,9 +607,9 @@ async def skip_track(_, m: Message):
                 if 2 <= i <= (len(playlist) - 1):
                     audio = f"{playlist[i][1]}"
                     playlist.pop(i)
-                    text.append(f"{emoji.WASTEBASKET} Succesfully Removed from Playlist- {i}. **{audio}**")
+                    text.append(f"{emoji.WASTEBASKET} Eliminada con éxito de la lista de reproducción- {i}. **{audio}**")
                 else:
-                    text.append(f"{emoji.CROSS_MARK} You Cant Skip First Two Songs- {i}")
+                    text.append(f"{emoji.CROSS_MARK} No puedes saltarte las dos primeras canciones- {i}")
             k=await m.reply_text("\n".join(text))
             await mp.delete(k)
             if not playlist:
@@ -617,16 +617,16 @@ async def skip_track(_, m: Message):
             else:
                 if len(playlist)>=25:
                     tplaylist=playlist[:25]
-                    pl=f"Listing first 25 songs of total {len(playlist)} songs.\n"
-                    pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                        f"**{i}**. **🎸{x[1]}**\n   👤**Requested by:** {x[4]}"
-                        for i, x in enumerate(tplaylist)
-                        ])
-                else:
-                    pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                        f"**{i}**. **🎸{x[1]}**\n   👤**Requested by:** {x[4]}\n"
-                        for i, x in enumerate(playlist)
+                pl=f"Lista de las primeras 25 canciones del total de {len (lista de reproducción)} canciones.\n"
+                pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
+                    f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}"
+                    for i, x in enumerate(tplaylist)
                     ])
+            else:
+                pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
+                    f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}\n"
+                    for i, x in enumerate(playlist)
+                ])
             if m.chat.type == "private":
                 await m.reply_text(pl, disable_web_page_preview=True)
             if EDIT_TITLE:
@@ -647,13 +647,13 @@ async def skip_track(_, m: Message):
 async def join_group_call(client, m: Message):
     group_call = mp.group_call
     if group_call.is_connected:
-        k=await m.reply_text(f"{emoji.ROBOT} Already joined voice chat")
+        k=await m.reply_text(f"{emoji.ROBOT} Ya estoy dentro de la llamada")
         await mp.delete(k)
         await mp.delete(m)
         return
     await mp.start_call()
     chat = await client.get_chat(CHAT)
-    k=await m.reply_text(f"Succesfully Joined Voice Chat in {chat.title}")
+    k=await m.reply_text(f"Entré exitosamente a la llamada: {chat.title}")
     await mp.delete(k)
     await mp.delete(m)
 
@@ -662,7 +662,7 @@ async def join_group_call(client, m: Message):
 async def leave_voice_chat(_, m: Message):
     group_call = mp.group_call
     if not group_call.is_connected:
-        k=await m.reply_text("Not joined any Voicechat yet.")
+        k=await m.reply_text("No se ha unido a ningún Voicechat todavía.")
         await mp.delete(k)
         await mp.delete(m)
         return
@@ -671,7 +671,7 @@ async def leave_voice_chat(_, m: Message):
         await mp.stop_radio()
     group_call.input_filename = ''
     await group_call.stop()
-    k=await m.reply_text("Left the VoiceChat")
+    k=await m.reply_text("Saliendo de la llamada...")
     await mp.delete(k)
     await mp.delete(m)
 
@@ -683,12 +683,12 @@ async def list_voice_chat(client, m: Message):
         chat_id = int("-100" + str(group_call.full_chat.id))
         chat = await client.get_chat(chat_id)
         k=await m.reply_text(
-            f"{emoji.MUSICAL_NOTES} **Currently in the voice chat**:\n"
+            f"{emoji.MUSICAL_NOTES} **Actualmente en el chat de voz**:\n"
             f"- **{chat.title}**"
         )
     else:
         k=await m.reply_text(emoji.NO_ENTRY
-                                   + "Didn't join any voice chat yet")
+                                   + "Aún no te uniste a ningún chat de voz")
     await mp.delete(k)
     await mp.delete(m)
 
@@ -697,14 +697,14 @@ async def list_voice_chat(client, m: Message):
 async def stop_playing(_, m: Message):
     group_call = mp.group_call
     if not group_call.is_connected:
-        k=await m.reply_text("Nothing playing to stop.")
+        k=await m.reply_text("No hay nada reproduciéndose para detenerlo.")
         await mp.delete(k)
         await mp.delete(m)
         return
     if 1 in RADIO:
         await mp.stop_radio()
     group_call.stop_playout()
-    k=await m.reply_text(f"{emoji.STOP_BUTTON} Stopped playing")
+    k=await m.reply_text(f"{emoji.STOP_BUTTON} Dejó de reproducirse")
     playlist.clear()
     await mp.delete(k)
     await mp.delete(m)
@@ -714,19 +714,19 @@ async def stop_playing(_, m: Message):
 async def restart_playing(_, m: Message):
     group_call = mp.group_call
     if not group_call.is_connected:
-        k=await m.reply_text("Nothing playing to replay.")
+        k=await m.reply_text("No hay nada que reproducir para repetirlo.")
         await mp.delete(k)
         await mp.delete(m)
         return
     if not playlist:
-        k=await m.reply_text("Empty Playlist.")
+        k=await m.reply_text("Playlist vacía.")
         await mp.delete(k)
         await mp.delete(m)
         return
     group_call.restart_playout()
     k=await m.reply_text(
         f"{emoji.COUNTERCLOCKWISE_ARROWS_BUTTON}  "
-        "Playing from the beginning..."
+        "Reprodiciendo desde el principio..."
     )
     await mp.delete(k)
     await mp.delete(m)
@@ -737,12 +737,12 @@ async def restart_playing(_, m: Message):
 async def pause_playing(_, m: Message):
     group_call = mp.group_call
     if not group_call.is_connected:
-        k=await m.reply_text("Nothing playing to pause.")
+        k=await m.reply_text("Nada reproduciéndose para pausar.")
         await mp.delete(k)
         await mp.delete(m)
         return
     mp.group_call.pause_playout()
-    k=await m.reply_text(f"{emoji.PLAY_OR_PAUSE_BUTTON} Paused",
+    k=await m.reply_text(f"{emoji.PLAY_OR_PAUSE_BUTTON} Pausado.",
                                quote=False)
     await mp.delete(k)
     await mp.delete(m)
@@ -752,12 +752,12 @@ async def pause_playing(_, m: Message):
 @Client.on_message(filters.command(["resume", f"resume@{U}"]) & admin_filter & (filters.chat(CHAT) | filters.private))
 async def resume_playing(_, m: Message):
     if not mp.group_call.is_connected:
-        k=await m.reply_text("Nothing paused to resume.")
+        k=await m.reply_text("No hay nada pausado para resumir.")
         await mp.delete(k)
         await mp.delete(m)
         return
     mp.group_call.resume_playout()
-    k=await m.reply_text(f"{emoji.PLAY_OR_PAUSE_BUTTON} Resumed",
+    k=await m.reply_text(f"{emoji.PLAY_OR_PAUSE_BUTTON} Resumido.",
                                quote=False)
     await mp.delete(k)
     await mp.delete(m)
@@ -776,7 +776,7 @@ async def clean_raw_pcm(client, m: Message):
             if fn.endswith(".raw"):
                 count += 1
                 os.remove(os.path.join(download_dir, fn))
-    k=await m.reply_text(f"{emoji.WASTEBASKET} Cleaned {count} files")
+    k=await m.reply_text(f"{emoji.WASTEBASKET} Se limpiaron {count} archivos")
     await mp.delete(k)
     await mp.delete(m)
 
@@ -785,12 +785,12 @@ async def clean_raw_pcm(client, m: Message):
 async def mute(_, m: Message):
     group_call = mp.group_call
     if not group_call.is_connected:
-        k=await m.reply_text("Nothing playing to mute.")
+        k=await m.reply_text("Nada reproduciéndose para silenciar.")
         await mp.delete(k)
         await mp.delete(m)
         return
     await group_call.set_is_mute(True)
-    k=await m.reply_text(f"{emoji.MUTED_SPEAKER} Muted")
+    k=await m.reply_text(f"{emoji.MUTED_SPEAKER} Silenciado.")
     await mp.delete(k)
     await mp.delete(m)
 
@@ -798,12 +798,12 @@ async def mute(_, m: Message):
 async def unmute(_, m: Message):
     group_call = mp.group_call
     if not group_call.is_connected:
-        k=await m.reply_text("Nothing playing to mute.")
+        k=await m.reply_text("No hay nada silenciado para remover el mute")
         await mp.delete(k)
         await mp.delete(m)
         return
     await group_call.set_is_mute(False)
-    k=await m.reply_text(f"{emoji.SPEAKER_MEDIUM_VOLUME} Unmuted")
+    k=await m.reply_text(f"{emoji.SPEAKER_MEDIUM_VOLUME} ahora no está silenciado")
     await mp.delete(k)
     await mp.delete(m)
 
@@ -812,40 +812,40 @@ async def unmute(_, m: Message):
 async def set_vol(_, m: Message):
     group_call = mp.group_call
     if not group_call.is_connected:
-        k=await m.reply_text("Not yet joined any VC.")
+        k=await m.reply_text("Aún no se ha unido a ningún VC.")
         await mp.delete(k)
         await mp.delete(m)
         return
     if len(m.command) < 2:
-        k=await m.reply_text('You forgot to pass volume (1-200).')
+        k=await m.reply_text('El límite del volumen es entre 1 a 200.')
         await mp.delete(k)
         await mp.delete(m)
         return
     await group_call.set_my_volume(int(m.command[1]))
-    k=await m.reply_text(f"Volume set to {m.command[1]}")
+    k=await m.reply_text(f"Volumen establecido a {m.command[1]}")
     await mp.delete(k)
     await mp.delete(m)
 
 @Client.on_message(filters.command(["playlist", f"playlist@{U}"]) & (filters.chat(CHAT) | filters.private))
 async def show_playlist(_, m: Message):
     if not playlist:
-        k=await m.reply_text(f"{emoji.NO_ENTRY} No songs are playing")
+        k=await m.reply_text(f"{emoji.NO_ENTRY} No hay canciones sonando")
         await mp.delete(k)
         await mp.delete(m)
         return
     else:
         if len(playlist)>=25:
             tplaylist=playlist[:25]
-            pl=f"Listing first 25 songs of total {len(playlist)} songs.\n"
-            pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                f"**{i}**. **🎸{x[1]}**\n   👤**Requested by:** {x[4]}"
-                for i, x in enumerate(tplaylist)
+                pl=f"Lista de las primeras 25 canciones del total de {len (lista de reproducción)} canciones.\n"
+                pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
+                    f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}"
+                    for i, x in enumerate(tplaylist)
+                    ])
+            else:
+                pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
+                    f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}\n"
+                    for i, x in enumerate(playlist)
                 ])
-        else:
-            pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                f"**{i}**. **🎸{x[1]}**\n   👤**Requested by:** {x[4]}\n"
-                for i, x in enumerate(playlist)
-            ])
     if m.chat.type == "private":
         await m.reply_text(pl, disable_web_page_preview=True)
     else:
@@ -859,18 +859,18 @@ async def show_playlist(_, m: Message):
 async def shuffle_play_list(client, m: Message):
     group_call = mp.group_call
     if not playlist:
-        k=await m.reply_text(f"{emoji.NO_ENTRY} No Playlist found, Maybe Radio is playing.")
+        k=await m.reply_text(f"{emoji.NO_ENTRY} No se encontró ninguna lista de reproducción. Quizás se esté reproduciendo la radio.")
         await mp.delete(k)
         await mp.delete(m)
         return
     else:
         if len(playlist) > 2:
             await mp.shuffle_playlist()
-            k=await m.reply_text(f"Playlist Shuffled.")
+            k=await m.reply_text(f"Lista de reproducción aleatoria.")
             await mp.delete(k)
             await mp.delete(m)
         else:
-            k=await m.reply_text(f"You cant shuffle playlist with less than 3 songs.")
+            k=await m.reply_text(f"No puede reproducir aleatoriamente la lista de reproducción con menos de 3 canciones.")
             await mp.delete(k)
             await mp.delete(m)
 
@@ -878,7 +878,7 @@ async def shuffle_play_list(client, m: Message):
 async def clear_play_list(client, m: Message):
     group_call = mp.group_call
     if not playlist:
-        k=await m.reply_text(f"{emoji.NO_ENTRY} No Playlist found, Maybe Radio is playing.")
+        k=await m.reply_text(f"{emoji.NO_ENTRY} No se encontró ninguna lista de reproducción. Quizás se esté reproduciendo la radio.")
         await mp.delete(k)
         await mp.delete(m)
         return
@@ -887,7 +887,7 @@ async def clear_play_list(client, m: Message):
         playlist.clear()
         if 3 in RADIO:
             RADIO.remove(3)
-        k=await m.reply_text(f"Playlist Cleared.")
+        k=await m.reply_text(f"Playlist eliminada.")
         await mp.delete(k)
         await mp.delete(m)
 
@@ -898,12 +898,12 @@ async def channel_play_list(client, m: Message):
     if not group_call.is_connected:
         await mp.start_call()
     if len(m.command) < 2:
-        k=await m.reply_text('You forgot to pass channel id or channel username.\nExample usage: <code>/cplay Myoosik</code> or <code>/cplay -1002525252525</code>.\n\n⚠️ If you are using channel id, make sure both the bot and user account are member of the given channel.')
+        k=await m.reply_text('Olvidó enviar el ID del canal o el nombre de usuario del canal.\nEjemplo del uso: <code>/cplay SkueletorSupport</code> o <code>/cplay -1001304146622</code>.\n\n⚠️ Si está utilizando la identificación del canal, asegúrese de que tanto el bot como la cuenta de usuario sean miembros del canal dado.')
         await mp.delete(k)
         await mp.delete(m)
         return
      
-    k=await m.reply_text(f"Starting Playing From <code>{m.command[1]}</code>")
+    k=await m.reply_text(f"Empezando a reproducir desde <code>{m.command[1]}</code>")
     group_call.stop_playout()
     playlist.clear()   
     await mp.c_play(m.command[1])
@@ -917,7 +917,7 @@ async def yt_play_list(client, m: Message):
         await mp.start_call()
     if m.reply_to_message is not None and m.reply_to_message.document:
         if m.reply_to_message.document.file_name != "YouTube_PlayList.json":
-            k=await m.reply("Invalid PlayList file given. Use @GetPlayListBot to get a playlist file.")
+            k=await m.reply("Se proporcionó un archivo de lista de reproducción no válido. Utilice @GetPlayListBot para obtener un archivo de lista de reproducción.")
             await mp.delete(k)
             return
         ytplaylist=await m.reply_to_message.download()
@@ -928,7 +928,7 @@ async def yt_play_list(client, m: Message):
                 playlist.append(play)
                 if len(playlist) == 1:
                     m_status = await m.reply_text(
-                        f"{emoji.INBOX_TRAY} Downloading and Processing..."
+                        f"{emoji.INBOX_TRAY} Descargando y procesando..."
                     )
                     await mp.download_audio(playlist[0])
                     if 1 in RADIO:
@@ -955,11 +955,11 @@ async def yt_play_list(client, m: Message):
                         f"{file_}.raw"
                     )
                     await m_status.delete()
-                    print(f"- START PLAYING: {playlist[0][1]}")
+                    print(f"- Reproduciendo: {playlist[0][1]}")
                     if EDIT_TITLE:
                         await mp.edit_title()
                 if not playlist:
-                    k=await m.reply("Invalid File Given")
+                    k=await m.reply("Archivo no válido proporcionado")
                     await mp.delete(k)
                     file.close()
                     try:
@@ -975,21 +975,21 @@ async def yt_play_list(client, m: Message):
             except:
                 pass
         except Exception as e:
-            k=await m.reply(f"Errors Occured while reading playlist: {e}")
+            k=await m.reply(f"Errores ocurridos al leer la lista de reproducción: {e}")
             await mp.delete(k)
             return
         if len(playlist)>=25:
             tplaylist=playlist[:25]
-            pl=f"Listing first 25 songs of total {len(playlist)} songs.\n"
-            pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                f"**{i}**. **🎸{x[1]}**\n   👤**Requested by:** {x[4]}"
-                for i, x in enumerate(tplaylist)
+                pl=f"Lista de las primeras 25 canciones del total de {len (lista de reproducción)} canciones.\n"
+                pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
+                    f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}"
+                    for i, x in enumerate(tplaylist)
+                    ])
+            else:
+                pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
+                    f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}\n"
+                    for i, x in enumerate(playlist)
                 ])
-        else:
-            pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                f"**{i}**. **🎸{x[1]}**\n   👤**Requested by:** {x[4]}\n"
-                for i, x in enumerate(playlist)
-            ])
         if m.chat.type == "private":
             await m.reply_text(pl, disable_web_page_preview=True)
         if LOG_GROUP:
@@ -1002,10 +1002,10 @@ async def yt_play_list(client, m: Message):
             na=m.text
             f, url=na.split(" ")
             if "playlist?list" not in url:
-                k=await m.reply("Invalid Playlist Url Given.")
+                k=await m.reply("Se ha proporcionado una URL de lista de reproducción no válida.")
                 await mp.delete(k)
                 return
-            msg=await m.reply("Getting Playlist Info..")
+            msg=await m.reply("Obteniendo información de la lista de reproducción...")
             ytplaylist=await mp.get_playlist(m.from_user.id, url)
             await msg.delete()
             if ytplaylist == "peer":
@@ -1017,34 +1017,34 @@ async def yt_play_list(client, m: Message):
                         ]
                     ]
                     )
-                k=await m.reply("I was unable to fetch data for you. Plase send /start to @GetPlayListBot and try again.", reply_markup=markup)
+                k=await m.reply("No pude obtener datos por ti. Por favor envíe /start en @GetPlayListBot e intente nuevamente.", reply_markup=markup)
                 await mp.delete(k)
                 return
             elif ytplaylist == "nosub":
                 markup=InlineKeyboardMarkup(
                     [
                         [
-                            InlineKeyboardButton("📢 Join My Update Channel", url='https://t.me/subin_works')
+                            InlineKeyboardButton("📢 Por favor ingresa al canal", url='https://t.me/AsAEcos')
                         ],
                         [
-                            InlineKeyboardButton("🔄 Try Again", url=f"https://telegram.me/GetPlaylistBot?start=subinps_{m.from_user.id}")
+                            InlineKeyboardButton("🔄 Intenta de nuevo", url=f"https://telegram.me/GetPlaylistBot?start=subinps_{m.from_user.id}")
 
                         ]
                     ]
                     )
-                k=await m.reply("You Have Not Subscribed to MY Update Channel, and Please Join My Update Channel to Use This Feature 🤒", reply_markup=markup)
+                k=await m.reply("No se ha suscrito al canal, por favor, únase al canal de nuestros bots para utilizar esta función 🤒", reply_markup=markup)
                 await mp.delete(k)
                 return
             elif ytplaylist == "kicked":
-                k=await m.reply("You are banned to use this feature.\nTry @GetPlayListBot")
+                k=await m.reply("Está baneado para utilizar esta función.")
                 await mp.delete(k)
                 return
             elif ytplaylist == "urlinvalid":
-                k=await m.reply("The Url you gave is Invalid, It should be something like <code>https://youtube.com/playlist?list=PL_rXc1ssylNebemAQVgDaOPijBaXU2gyD</code>")
+                k=await m.reply("La URL que proporcionó no es válida, debería ser algo como <code>https://www.youtube.com/playlist?list=PL6H6TfFpYvpenAGZiXUxdP99CtUuuxLEk</code>")
                 await mp.delete(k)
                 return
             elif ytplaylist == "timeout":
-                k=await m.reply("I was unable to get data within time. Try to get the playlist data from @GetPlaylIstBot")
+                k=await m.reply("No pude obtener datos a tiempo. Intente obtener los datos de la lista de reproducción de @GetPlaylIstBot")
                 await mp.delete(k)
                 return
             elif "Error" in ytplaylist:
@@ -1059,7 +1059,7 @@ async def yt_play_list(client, m: Message):
                         playlist.append(play)
                         if len(playlist) == 1:
                             m_status = await m.reply_text(
-                                f"{emoji.INBOX_TRAY} Downloading and Processing..."
+                                f"{emoji.INBOX_TRAY} Descargando y procesando..."
                             )
                             await mp.download_audio(playlist[0])
                             if 1 in RADIO:
@@ -1086,11 +1086,11 @@ async def yt_play_list(client, m: Message):
                                 f"{file_}.raw"
                             )
                             await m_status.delete()
-                            print(f"- START PLAYING: {playlist[0][1]}")
+                            print(f"- Reproduciendo: {playlist[0][1]}")
                             if EDIT_TITLE:
                                 await mp.edit_title()
                         if not playlist:
-                            k=await m.reply("Invalid File Given")
+                            k=await m.reply("Archivo no válido proporcionado")
                             await mp.delete(k)
                             file.close()
                             try:
@@ -1106,7 +1106,7 @@ async def yt_play_list(client, m: Message):
                     except:
                         pass
                 except Exception as e:
-                    k=await m.reply(f"Errors Occured while reading playlist: {e}")
+                    k=await m.reply(f"Errores ocurridos al leer la lista de reproducción: {e}")
                     await mp.delete(k)
                     return
                 if len(playlist)>=25:
@@ -1197,7 +1197,7 @@ async def import_play_list(client, m: Message):
                         f"{file_}.raw"
                     )
                     await m_status.delete()
-                    print(f"- START PLAYING: {playlist[0][1]}")
+                    print(f"- Reproduciendo: {playlist[0][1]}")
                     if EDIT_TITLE:
                         await mp.edit_title()
                 if not playlist:
@@ -1217,21 +1217,21 @@ async def import_play_list(client, m: Message):
             except:
                 pass
         except Exception as e:
-            k=await m.reply(f"Errors Occured while reading playlist: {e}")
+            k=await m.reply(f"Errores ocurridos al leer la lista de reproducción: {e}")
             await mp.delete(k)
             return
         if len(playlist)>=25:
             tplaylist=playlist[:25]
-            pl=f"Listing first 25 songs of total {len(playlist)} songs.\n"
-            pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                f"**{i}**. **🎸{x[1]}**\n   👤**Requested by:** {x[4]}"
-                for i, x in enumerate(tplaylist)
+                pl=f"Lista de las primeras 25 canciones del total de {len (lista de reproducción)} canciones.\n"
+                pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
+                    f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}"
+                    for i, x in enumerate(tplaylist)
+                    ])
+            else:
+                pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
+                    f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}\n"
+                    for i, x in enumerate(playlist)
                 ])
-        else:
-            pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                f"**{i}**. **🎸{x[1]}**\n   👤**Requested by:** {x[4]}\n"
-                for i, x in enumerate(playlist)
-            ])
         if m.chat.type == "private":
             await m.reply_text(pl, disable_web_page_preview=True)
         if LOG_GROUP:
@@ -1240,7 +1240,7 @@ async def import_play_list(client, m: Message):
             k=await m.reply_text(pl, disable_web_page_preview=True)
             await mp.delete(k)
     else:
-        k=await m.reply("Reply to a previously exported playlist.")
+        k=await m.reply("Responda a una playlist exportada anteriormente.")
         await mp.delete(m)
         await mp.delete(k)
 
@@ -1248,23 +1248,23 @@ async def import_play_list(client, m: Message):
 @Client.on_message(filters.command(['upload', f'upload@{U}']) & (filters.chat(CHAT) | filters.private))
 async def upload(client, message):
     if not playlist:
-        k=await message.reply_text(f"{emoji.NO_ENTRY} No songs are playing")
+        k=await message.reply_text(f"{emoji.NO_ENTRY} No hay canciones sonando")
         await mp.delete(k)
         await mp.delete(message)
         return
     url=playlist[0][2]
     if playlist[0][3] == "telegram":
-        await client.send_audio(chat_id=message.chat.id, audio=url, caption=f"<b>Song: {playlist[0][1]}\nUploaded Using [MusicPlayer](https://github.com/subinps/MusicPlayer)</b>")
+        await client.send_audio(chat_id=message.chat.id, audio=url, caption=f"<b>Canción: {playlist[0][1]}\nHecho por [Skueletor](https://telegram.dog/DKzippO)</b>")
     elif playlist[0][3] == "youtube":
         file=GET_FILE[url]
         thumb=GET_THUMB.get(url)
         if thumb is None:
-            thumb="https://telegra.ph/file/181242eab5c4a74916d01.jpg"
+            thumb="https://telegra.ph/file/a5cd3afd3fa2b27d73861.jpg"
         response = requests.get(thumb, allow_redirects=True)
         open(f"{playlist[0][5]}.jpeg", 'wb').write(response.content)
         await message.reply_chat_action("upload_document")
         dur=ffmpeg.probe(file)['format']['duration']
-        m=await message.reply_text(f"Starting Uploading {playlist[0][1]}...")
+        m=await message.reply_text(f"Comenzando a subir {playlist[0][1]}...")
         await client.send_audio(
             chat_id=message.chat.id,
             audio=file,
@@ -1273,14 +1273,14 @@ async def upload(client, message):
             title=playlist[0][1],
             duration=int(float(dur)),
             performer="MusicPlayer",
-            caption=f"<b>Song: [{playlist[0][1]}]({playlist[0][2]})\nUploaded Using [MusicPlayer](https://github.com/subinps/MusicPlayer)</b>"
+            caption=f"<b>Canción: [{playlist[0][1]}]({playlist[0][2]})\nHecho por [Skueletor](https://telegram.dog/DKzippO</b>"
             )
         await m.delete()
     else:
         file=GET_FILE[url]
         thumb=GET_THUMB.get(url)
         if thumb is None:
-            thumb="https://telegra.ph/file/181242eab5c4a74916d01.jpg"
+            thumb="https://telegra.ph/file/a5cd3afd3fa2b27d73861.jpg"
         response = requests.get(thumb, allow_redirects=True)
         open(f"{playlist[0][5]}.jpeg", 'wb').write(response.content)
         await message.reply_chat_action("upload_document")
@@ -1297,7 +1297,7 @@ async def upload(client, message):
             title=playlist[0][1],
             duration=int(float(dur)),
             performer="MusicPlayer",
-            caption=f"<b>Song: [{playlist[0][1]}]({playlist[0][2]})\nUploaded Using [MusicPlayer](https://github.com/subinps/MusicPlayer)</b>"
+            caption=f"<b>Canción: [{playlist[0][1]}]({playlist[0][2]})\nHecho por [Skueletor](https://telegram.dog/DKzippO</b>"
             )
         await m.delete()
         try:
@@ -1310,7 +1310,7 @@ admincmds=["join", "unmute", "yplay", "mute", "leave", "clean", "vc", "pause", "
 
 @Client.on_message(filters.command(admincmds) & ~admin_filter & (filters.chat(CHAT) | filters.private))
 async def notforu(_, m: Message):
-    k=await m.reply("Who the hell you are?.")
+    k=await m.reply("¿Quién diablos eres?\nNo tienes acceso a este comando.")
     await mp.delete(k)
     await mp.delete(m)
 allcmd = ["play", "player", "splay", f"splay@{U}", f"play@{U}", f"player@{U}"] + admincmds
@@ -1319,13 +1319,12 @@ allcmd = ["play", "player", "splay", f"splay@{U}", f"play@{U}", f"player@{U}"] +
 async def not_chat(_, m: Message):
     buttons = [
         [
-            InlineKeyboardButton('⚡️Make Own Bot', url='https://heroku.com/deploy?template=https://github.com/subinps/MusicPlayer'),
-            InlineKeyboardButton('🧩 Source Code', url='https://github.com/subinps/MusicPlayer'),
+            InlineKeyboardButton('🍃 AsA Ecos', url='https://AsAEcos')
         ],
         [
-            InlineKeyboardButton('How to Make', url='https://youtu.be/iBK-5pP2eHM'),
+            InlineKeyboardButton('👤 Soporte', url='https://telegram.dog/DkzippO'),
             InlineKeyboardButton('👨🏼‍🦯 Help', callback_data='help')       
         ]
         ]
-    k=await m.reply("<b>You can't use this bot in this group, for that you have to make your own bot from the [SOURCE CODE](https://github.com/subinps/MusicPlayer) below.</b>", disable_web_page_preview=True, reply_markup=InlineKeyboardMarkup(buttons))
+    k=await m.reply("<b>No puedes usar este bot en este grupo, para eso tienes que contactar al creador del bot, [Skueletor](https://telegram.dog/DKzippO</b>.</b>", disable_web_page_preview=True, reply_markup=InlineKeyboardMarkup(buttons))
     await mp.delete(m)
