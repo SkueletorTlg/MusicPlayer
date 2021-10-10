@@ -31,7 +31,7 @@ links=[]
 finalurl=""
 C_PLAY=False
 Y_PLAY=False
-STREAM=os.environ.get("STREAM_URL", "https://t.me/DumpPlaylist/30")
+STREAM=os.environ.get("STREAM_URL", "https://freeuk15.listen2myradio.com/live.mp3?typeportmount=s1_17850_stream_494706655")
 regex = r"^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+"
 match = re.match(regex,STREAM)
 regex_ = r"http.*"
@@ -42,14 +42,14 @@ if match:
     for f in formats:
         links.append(f['url'])
     finalurl=links[-1]
-elif STREAM.startswith("https://t.me/DumpPlaylist"):
+elif STREAM.startswith("https://freeuk15.listen2myradio.com/live.mp3?typeportmount=s1_17850_stream_494706655"):
     try:
         msg_id=STREAM.split("/", 4)[4]
         finalurl=int(msg_id)
         Y_PLAY=True
     except:
-        finalurl="https://eu10.fastcast4u.com/clubfmuae"
-        print("Unable to fetch youtube playlist, starting CLUB FM")
+        finalurl="https://freeuk15.listen2myradio.com/live.mp3?typeportmount=s1_17850_stream_494706655"
+        print("No se puede recuperar la lista de reproducción de YouTube, iniciando la radio")
         pass
 elif match_:
     finalurl=STREAM 
