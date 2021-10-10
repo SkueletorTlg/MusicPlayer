@@ -67,7 +67,7 @@ bot.start()
 
 @bot.on_message(filters.command(["restart", f"restart@{USERNAME}"]) & filters.user(Config.ADMINS) & (filters.chat(CHAT) | filters.private))
 async def restart(client, message):
-    await message.reply_text("🔄 Updating and Restarting...")
+    await message.reply_text("🔄 Actualizando y reiniciando...")
     await asyncio.sleep(3)
     try:
         await message.delete()
@@ -93,115 +93,111 @@ bot.send(
         commands=[
             types.BotCommand(
                 command="start",
-                description="Check if bot alive"
+                description="Revisa si el bot está activo"
             ),
             types.BotCommand(
                 command="help",
-                description="Shows help message"
+                description="Muestra el mensaje de ayuda"
             ),
             types.BotCommand(
                 command="play",
-                description="Play song from youtube/audiofile"
-            ),
-            types.BotCommand(
-                command="splay",
-                description="Play song from JioSaavn, use -a flag to play an album."
+                description="Reproduce una canción de YT o audio"
             ),
             types.BotCommand(
                 command="cplay",
-                description="Plays music files from a channel."
+                description="Reproduce archivos de música de un canal.."
             ),
             types.BotCommand(
                 command="yplay",
-                description="Plays music files from a youtube playlist."
+                description="Reproduce archivos de música de una lista de reproducción de YouTube."
             ),
             types.BotCommand(
                 command="player",
-                description="Shows current playing song with controls"
+                description="Muestra la canción que se está reproduciendo actualmente con controles"
             ),
             types.BotCommand(
                 command="playlist",
-                description="Shows the playlist"
+                description="Muestra la playlist"
             ),
             types.BotCommand(
                 command="clearplaylist",
-                description="Clears the current playlist"
+                description="Elimina la playlist actual"
             ),
             types.BotCommand(
                 command="shuffle",
-                description="Shuffle the playlist"
+                description="Reproducir aleatoriamente la playlist"
             ),
             types.BotCommand(
                 command="export",
-                description="Export current playlist as json file for future use."
+                description="Exporte la playlist actual como archivo json para un uso futuro."
             ),
             types.BotCommand(
                 command="import",
-                description="Import a previously exported playlist."
+                description="Importa una lista de reproducción exportada anteriormente."
             ),
             types.BotCommand(
                 command="upload",
-                description="Upload current playing song as audio file."
+                description="Sube la canción que se está reproduciendo como archivo de audio."
             ),
             types.BotCommand(
                 command="skip",
-                description="Skip the current song"
+                description="Omitir la canción actual"
             ),           
             types.BotCommand(
                 command="join",
-                description="Join VC"
+                description="Ingresar a la llamada"
             ),
             types.BotCommand(
                 command="leave",
-                description="Leave from VC"
+                description="Salir de la llamada"
             ),
             types.BotCommand(
                 command="vc",
-                description="Ckeck if VC is joined"
+                description="Compruebe si VC está iniciado"
             ),
             types.BotCommand(
                 command="stop",
-                description="Stops Playing"
+                description="Pausa la canción"
             ),
             types.BotCommand(
                 command="radio",
-                description="Start radio / Live stream"
+                description="Inicia la radio"
             ),
             types.BotCommand(
                 command="stopradio",
-                description="Stops radio/Livestream"
+                description="Detén la radio"
             ),
             types.BotCommand(
                 command="replay",
-                description="Replay from beggining"
+                description="Repetir desde el principio"
             ),
             types.BotCommand(
                 command="clean",
-                description="Cleans RAW files"
+                description="Limpia archivos RAW"
             ),
             types.BotCommand(
                 command="pause",
-                description="Pause the song"
+                description="Pausa la canción actual"
             ),
             types.BotCommand(
                 command="resume",
-                description="Resume the paused song"
+                description="Reproduce la canción pausada"
             ),
             types.BotCommand(
                 command="mute",
-                description="Mute in VC"
+                description="Silencia el bot en la llamada"
             ),
             types.BotCommand(
                 command="volume",
-                description="Set volume between 0-200"
+                description="Ajusta el volumen entre 0-200"
             ),
             types.BotCommand(
                 command="unmute",
-                description="Unmute in VC"
+                description="Activar sonido en la llamada"
             ),
             types.BotCommand(
                 command="restart",
-                description="Update and restart the bot"
+                description="Actualiza y reinicia el bot "
             )
         ]
     )
