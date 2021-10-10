@@ -1111,14 +1111,14 @@ async def yt_play_list(client, m: Message):
                     return
                 if len(playlist)>=25:
                     tplaylist=playlist[:25]
-                    pl=f"Listing first 25 songs of total {len(playlist)} songs.\n"
+                    pl=f"Lista de las primeras 25 canciones del total de {len (lista de reproducción)} canciones.\n"
                     pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                        f"**{i}**. **🎸{x[1]}**\n   👤**Requested by:** {x[4]}"
+                        f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}"
                         for i, x in enumerate(tplaylist)
                         ])
                 else:
                     pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                        f"**{i}**. **🎸{x[1]}**\n   👤**Requested by:** {x[4]}\n"
+                        f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}\n"
                         for i, x in enumerate(playlist)
                     ])
                 if m.chat.type == "private":
@@ -1129,7 +1129,7 @@ async def yt_play_list(client, m: Message):
                     k=await m.reply_text(pl, disable_web_page_preview=True)
                     await mp.delete(k)
         else:
-            k=await m.reply("Reply to a Playlist File Or Pass A YouTube Playlist Url along command.\nUse @GetPlayListBot To Get A PlayList File")
+            k=await m.reply("Responda a un archivo de lista de reproducción o pasar una URL de lista de reproducción de YouTube junto con el comando. \nUtilice @GetPlayListBot para obtener un archivo de lista de reproducción")
             await mp.delete(k)
             await mp.delete(m)
 
@@ -1144,7 +1144,7 @@ async def export_play_list(client, message: Message):
     file=f"{message.chat.id}_{message.message_id}.json"
     with open(file, 'w+') as outfile:
         json.dump(playlist, outfile, indent=4)
-    await client.send_document(chat_id=message.chat.id, document=file, file_name="PlayList.json", caption=f"Playlist\n\nNumber Of Songs: <code>{len(playlist)}</code>\n\nJoin [XTZ Bots](https://t.me/subin_works)")
+    await client.send_document(chat_id=message.chat.id, document=file, file_name="PlayList.json", caption=f"Playlist\n\nNúmero de canciones: <code>{len(playlist)}</code>\n\nÚnete a [🍃 AsA Ecos](https://t.me/AsAEcos)")
     await mp.delete(message)
     try:
         os.remove(file)
@@ -1158,7 +1158,7 @@ async def import_play_list(client, m: Message):
         await mp.start_call()
     if m.reply_to_message is not None and m.reply_to_message.document:
         if m.reply_to_message.document.file_name != "PlayList.json":
-            k=await m.reply("Invalid PlayList file given. Use @GetPlayListBot to get a playlist file. Or Export your current Playlist using /export.")
+            k=await m.reply("Se proporcionó un archivo de lista de reproducción no válido. Utilice @GetPlayListBot para obtener un archivo de lista de reproducción. O exporta tu lista de reproducción actual usando /export.")
             await mp.delete(k)
             await mp.delete(m)
             return
@@ -1273,7 +1273,7 @@ async def upload(client, message):
             title=playlist[0][1],
             duration=int(float(dur)),
             performer="MusicPlayer",
-            caption=f"<b>Canción: [{playlist[0][1]}]({playlist[0][2]})\nHecho por [Skueletor](https://telegram.dog/DKzippO</b>"
+            caption=f"<b>Canción: [{playlist[0][1]}]({playlist[0][2]})\nHecho por [Skueletor](https://telegram.dog/DKzippO)</b>"
             )
         await m.delete()
     else:
@@ -1297,7 +1297,7 @@ async def upload(client, message):
             title=playlist[0][1],
             duration=int(float(dur)),
             performer="MusicPlayer",
-            caption=f"<b>Canción: [{playlist[0][1]}]({playlist[0][2]})\nHecho por [Skueletor](https://telegram.dog/DKzippO</b>"
+            caption=f"<b>Canción: [{playlist[0][1]}]({playlist[0][2]})\nHecho por [Skueletor](https://telegram.dog/DKzippO)</b>"
             )
         await m.delete()
         try:
@@ -1323,8 +1323,8 @@ async def not_chat(_, m: Message):
         ],
         [
             InlineKeyboardButton('👤 Soporte', url='https://telegram.dog/DkzippO'),
-            InlineKeyboardButton('👨🏼‍🦯 Help', callback_data='help')       
+            InlineKeyboardButton('👨🏼‍🦯 Ayuda', callback_data='help')       
         ]
         ]
-    k=await m.reply("<b>No puedes usar este bot en este grupo, para eso tienes que contactar al creador del bot, [Skueletor](https://telegram.dog/DKzippO</b>.</b>", disable_web_page_preview=True, reply_markup=InlineKeyboardMarkup(buttons))
+    k=await m.reply("<b>No puedes usar este bot en este grupo, para eso tienes que contactar al creador del bot, [Skueletor](https://telegram.dog/DKzippO).</b>", disable_web_page_preview=True, reply_markup=InlineKeyboardMarkup(buttons))
     await mp.delete(m)
