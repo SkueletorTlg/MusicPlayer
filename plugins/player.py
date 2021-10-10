@@ -156,7 +156,7 @@ async def yplay(_, message: Message):
         else:   
             if len(playlist)>=25:
                 tplaylist=playlist[:25]
-                pl=f"Lista de las primeras 25 canciones del total de {len (lista de reproducción)} canciones.\n"
+                pl=f"Lista de las primeras 25 canciones del total de {len(playlist)} canciones.\n"
                 pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
                     f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}"
                     for i, x in enumerate(tplaylist)
@@ -273,7 +273,7 @@ async def yplay(_, message: Message):
         else:
             if len(playlist)>=25:
                 tplaylist=playlist[:25]
-                pl=f"Lista de las primeras 25 canciones del total de {len (lista de reproducción)} canciones.\n"
+                pl=f"Lista de las primeras 25 canciones del total de {len(playlist)} canciones.\n"
                 pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
                     f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}"
                     for i, x in enumerate(tplaylist)
@@ -391,7 +391,7 @@ async def deezer(_, message):
             else:
                 if len(playlist)>=25:
                     tplaylist=playlist[:25]
-                    pl=f"Lista de las primeras 25 canciones del total de {len (lista de reproducción)} canciones.\n"
+                    pl=f"Lista de las primeras 25 canciones del total de {len(playlist)} canciones.\n"
                     pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
                         f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}"
                         for i, x in enumerate(tplaylist)
@@ -481,7 +481,7 @@ async def deezer(_, message):
         else:
             if len(playlist)>=25:
                 tplaylist=playlist[:25]
-                pl=f"Lista de las primeras 25 canciones del total de {len (lista de reproducción)} canciones.\n"
+                pl=f"Lista de las primeras 25 canciones del total de {len(playlist)} canciones.\n"
                 pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
                     f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}"
                     for i, x in enumerate(tplaylist)
@@ -515,7 +515,7 @@ async def player(_, m: Message):
     else:
         if len(playlist)>=25:
             tplaylist=playlist[:25]
-                pl=f"Lista de las primeras 25 canciones del total de {len (lista de reproducción)} canciones.\n"
+                pl=f"Lista de las primeras 25 canciones del total de {len(playlist)} canciones.\n"
                 pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
                     f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}"
                     for i, x in enumerate(tplaylist)
@@ -578,7 +578,7 @@ async def skip_track(_, m: Message):
         else:
             if len(playlist)>=25:
                 tplaylist=playlist[:25]
-                pl=f"Lista de las primeras 25 canciones del total de {len (lista de reproducción)} canciones.\n"
+                pl=f"Lista de las primeras 25 canciones del total de {len(playlist)} canciones.\n"
                 pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
                     f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}"
                     for i, x in enumerate(tplaylist)
@@ -617,7 +617,7 @@ async def skip_track(_, m: Message):
             else:
                 if len(playlist)>=25:
                     tplaylist=playlist[:25]
-                pl=f"Lista de las primeras 25 canciones del total de {len (lista de reproducción)} canciones.\n"
+                pl=f"Lista de las primeras 25 canciones del total de {len(playlist)} canciones.\n"
                 pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
                     f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}"
                     for i, x in enumerate(tplaylist)
@@ -836,7 +836,7 @@ async def show_playlist(_, m: Message):
     else:
         if len(playlist)>=25:
             tplaylist=playlist[:25]
-                pl=f"Lista de las primeras 25 canciones del total de {len (lista de reproducción)} canciones.\n"
+                pl=f"Lista de las primeras 25 canciones del total de {len(playlist)} canciones.\n"
                 pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
                     f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}"
                     for i, x in enumerate(tplaylist)
@@ -980,7 +980,7 @@ async def yt_play_list(client, m: Message):
             return
         if len(playlist)>=25:
             tplaylist=playlist[:25]
-                pl=f"Lista de las primeras 25 canciones del total de {len (lista de reproducción)} canciones.\n"
+                pl=f"Lista de las primeras 25 canciones del total de {len(playlist)} canciones.\n"
                 pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
                     f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}"
                     for i, x in enumerate(tplaylist)
@@ -1111,7 +1111,7 @@ async def yt_play_list(client, m: Message):
                     return
                 if len(playlist)>=25:
                     tplaylist=playlist[:25]
-                    pl=f"Lista de las primeras 25 canciones del total de {len (lista de reproducción)} canciones.\n"
+                    pl=f"Lista de las primeras 25 canciones del total de {len(playlist)} canciones.\n"
                     pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
                         f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}"
                         for i, x in enumerate(tplaylist)
@@ -1222,7 +1222,7 @@ async def import_play_list(client, m: Message):
             return
         if len(playlist)>=25:
             tplaylist=playlist[:25]
-                pl=f"Lista de las primeras 25 canciones del total de {len (lista de reproducción)} canciones.\n"
+                pl=f"Lista de las primeras 25 canciones del total de {len(playlist)} canciones.\n"
                 pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
                     f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}"
                     for i, x in enumerate(tplaylist)
