@@ -103,18 +103,18 @@ class MusicPlayer(object):
 
     async def send_playlist(self):
         if not playlist:
-            pl = f"{emoji.NO_ENTRY} Empty playlist"
+            pl = f"{emoji.NO_ENTRY} Playlist vacía"
         else:
             if len(playlist)>=25:
                 tplaylist=playlist[:25]
-                pl=f"Listing first 25 songs of total {len(playlist)} songs.\n"
+                pl=f"Lista de las primeras 25 canciones de {len(playlist)} canciones.\n"
                 pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                    f"**{i}**. **🎸{x[1]}**\n   👤**Requested by:** {x[4]}"
+                    f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}"
                     for i, x in enumerate(tplaylist)
                     ])
             else:
                 pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                    f"**{i}**. **🎸{x[1]}**\n   👤**Requested by:** {x[4]}\n"
+                    f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}\n"
                     for i, x in enumerate(playlist)
                 ])
         if msg.get('playlist') is not None:
@@ -188,7 +188,7 @@ class MusicPlayer(object):
                     original_file=path.join("downloads", f"{info['id']}.{info['ext']}")
                 except Exception as e:
                     playlist.pop(1)
-                    print(f"Unable to download due to {e} and skipped.")
+                    print(f"No se pudo descargar debido a {e} y se omitió.")
                     if len(playlist) == 1:
                         return
                     await self.download_audio(playlist[1])
@@ -268,10 +268,10 @@ class MusicPlayer(object):
         group_call.input_filename = f'radio-{CHAT}.raw'
         while True:
             if group_call.is_connected:
-                print("Succesfully Joined")
+                print("Entré correctamente al chat de voz.")
                 break
             else:
-                print("Connecting...")
+                print("Conectando...")
                 await self.start_call()
                 await sleep(10)
                 continue
@@ -337,7 +337,7 @@ class MusicPlayer(object):
         try:
             await self.group_call.client.send(edit)
         except Exception as e:
-            print("Errors Occured while editing title", e)
+            print("Errores ocurridos al editar el título", e)
             pass
     
 
@@ -382,18 +382,18 @@ class MusicPlayer(object):
             channel=channel      
         try:
             chat=await USER.get_chat(channel)
-            print("Starting Playlist from", chat.title)
+            print("Iniciando lista de reproducción desde", chat.title)
             async for m in USER.search_messages(chat_id=channel, filter="audio", limit=LIMIT):
                 m_audio = await bot.get_messages(channel, m.message_id)
                 if round(m_audio.audio.duration / 60) > DURATION_LIMIT:
-                    print(f"Skiped {m_audio.audio.file_name} since duration is greater than maximum duration.")
+                    print(f"Salté {m_audio.audio.file_name} porque la duración es mayor que la duración máxima.")
                 else:
                     now = datetime.now()
                     nyav = now.strftime("%d-%m-%Y-%H:%M:%S")
                     data={1:m_audio.audio.title, 2:m_audio.audio.file_id, 3:"telegram", 4:f"[{chat.title}]({m_audio.link})", 5:f"{nyav}_{m.message_id}"}
                     playlist.append(data)
                     if len(playlist) == 1:
-                        print("Downloading..")
+                        print("Descargando...")
                         await self.download_audio(playlist[0])
                         if not self.group_call.is_connected:
                             await self.start_call()
@@ -404,15 +404,15 @@ class MusicPlayer(object):
                             DEFAULT_DOWNLOAD_DIR,
                             f"{file}.raw"
                         )
-                        print(f"- START PLAYING: {playlist[0][1]}")                   
+                        print(f"- Reproduciendo: {playlist[0][1]}")                   
                         if EDIT_TITLE:
                             await self.edit_title()
                     for track in playlist[:2]:
                         await self.download_audio(track)
             if not playlist:
-                print("No songs Found From Channel, Starting Club FM")
+                print("No se han encontrado canciones del canal, Iniciando Radio")
                 Config.CPLAY=False
-                Config.STREAM_URL="https://eu10.fastcast4u.com/clubfmuae"
+                Config.STREAM_URL="https://freeuk15.listen2myradio.com/live.mp3?typeportmount=s1_17850_stream_494706655"
                 await self.start_radio()
                 return
             else:
@@ -423,9 +423,9 @@ class MusicPlayer(object):
                     await self.send_playlist()          
         except Exception as e:
             Config.CPLAY=False
-            Config.STREAM_URL="https://eu10.fastcast4u.com/clubfmuae"
+            Config.STREAM_URL="https://freeuk15.listen2myradio.com/live.mp3?typeportmount=s1_17850_stream_494706655"
             await self.start_radio()
-            print("Errorrs Occured\n Starting CluB FM", e)
+            print("Ha ocurrido un error\n Iniciando Radio", e)
 
     async def y_play(self, msg_id):
         if 1 in RADIO:
@@ -438,7 +438,7 @@ class MusicPlayer(object):
             for play in f:
                 playlist.append(play)
                 if len(playlist) == 1:
-                    print("Downloading..")
+                    print("Descargando...")
                     await self.download_audio(playlist[0])
                     if not self.group_call.is_connected:
                         await self.start_call()
@@ -449,13 +449,13 @@ class MusicPlayer(object):
                         DEFAULT_DOWNLOAD_DIR,
                         f"{file_}.raw"
                     )
-                    print(f"- START PLAYING: {playlist[0][1]}")
+                    print(f"- Reproduciendo: {playlist[0][1]}")
                     if EDIT_TITLE:
                         await self.edit_title()
                 if not playlist:
-                    print("Invalid Playlist File, Starting ClubFM")
+                    print("Archivo de playlist inválido, iniciando la radio.")
                     Config.YPLAY=False
-                    Config.STREAM_URL="https://eu10.fastcast4u.com/clubfmuae"
+                    Config.STREAM_URL="https://freeuk15.listen2myradio.com/live.mp3?typeportmount=s1_17850_stream_494706655"
                     await self.start_radio()
                     file.close()
                     try:
@@ -477,9 +477,9 @@ class MusicPlayer(object):
             except:
                 pass
         except Exception as e:
-            print("Invalid Playlist File, Starting ClubFM")
+            print("Archivo de playlist inválido, iniciando la radio.")
             Config.YPLAY=False
-            Config.STREAM_URL="https://eu10.fastcast4u.com/clubfmuae"
+            Config.STREAM_URL="https://freeuk15.listen2myradio.com/live.mp3?typeportmount=s1_17850_stream_494706655"
             await self.start_radio()
             return
 
