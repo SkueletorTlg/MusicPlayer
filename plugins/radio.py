@@ -43,23 +43,23 @@ admin_filter=filters.create(is_admin)
 async def radio(client, message: Message):
     if Config.CPLAY:
         if 3 in RADIO:
-            k=await message.reply_text("It seems channel play is enabled and playlist is not empty.\nUse /clearplaylist to empty the playlist.")
+            k=await message.reply_text("Parece que la reproducción de canales está habilitada y la lista de reproducción no está vacía.\nUse /clearplaylist para eliminar la plailist")
             await mp.delete(k)
             await mp.delete(message)
             return
         else:
             await mp.start_radio()
-            k=await message.reply_text(f"Channel Play from <code>{STREAM}</code> started.")
+            k=await message.reply_text(f"Se inició la reproducción del canal desde <code>{STREAM}</code>.")
             await mp.delete(k)
             await mp.delete(message)
             return
     if 1 in RADIO:
-        k=await message.reply_text("Kindly stop existing Radio Stream /stopradio")
+        k=await message.reply_text("Por favor, detenga la transmisión de radio existente /stopradio")
         await mp.delete(k)
         await mp.delete(message)
         return
     await mp.start_radio()
-    k=await message.reply_text(f"Started Radio: <code>{STREAM}</code>")
+    k=await message.reply_text(f"Radio iniciada: <code>{STREAM}</code>")
     await mp.delete(k)
     await mp.delete(message)
 
@@ -67,7 +67,7 @@ async def radio(client, message: Message):
 async def stop(_, message: Message):
     if Config.CPLAY:
         if 3 not in RADIO:
-            k=await message.reply_text("It seems channel play is enabled and playlist is empty.\nUse /radio to restart the playout.")
+            k=await message.reply_text("Parece que la reproducción de canales está habilitada y la lista de reproducción está vacía.\nUtiliza /radio para reiniciar la reproducción.")
             await mp.delete(k)
             await mp.delete(message)
             return
