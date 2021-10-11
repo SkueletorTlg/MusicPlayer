@@ -26,9 +26,9 @@ from pyrogram.types import InlineQueryResultArticle, InputTextMessageContent, In
 from pyrogram import Client, errors
 from config import Config
 REPLY_MESSAGE=Config.REPLY_MESSAGE
-    buttons = [
-        [
-            InlineKeyboardButton('🍃 AsA Ecos', url='https://AsAEcos')
+buttons = [
+    [
+            InlineKeyboardButton('🍃 AsA Ecos', url='https://AsAEcos'),
         ],
         [
         InlineKeyboardButton('🎧 Reproduce Música', url=f'https://t.me/{USERNAME}'),
