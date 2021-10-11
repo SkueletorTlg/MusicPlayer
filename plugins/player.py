@@ -515,16 +515,16 @@ async def player(_, m: Message):
     else:
         if len(playlist)>=25:
             tplaylist=playlist[:25]
-                pl=f"Lista de las primeras 25 canciones del total de {len(playlist)} canciones.\n"
-                pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                    f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}"
-                    for i, x in enumerate(tplaylist)
-                    ])
-            else:
-                pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                    f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}\n"
-                    for i, x in enumerate(playlist)
+            pl=f"Lista de las primeras 25 canciones del total de {len(playlist)} canciones.\n"
+            pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
+                f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}"
+                for i, x in enumerate(tplaylist)
                 ])
+        else:
+            pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
+                f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}\n"
+                for i, x in enumerate(playlist)
+            ])
     if m.chat.type == "private":
         await m.reply_text(
             pl,
@@ -617,16 +617,16 @@ async def skip_track(_, m: Message):
             else:
                 if len(playlist)>=25:
                     tplaylist=playlist[:25]
-                pl=f"Lista de las primeras 25 canciones del total de {len(playlist)} canciones.\n"
-                pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                    f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}"
-                    for i, x in enumerate(tplaylist)
+                    pl=f"Lista de las primeras 25 canciones del total de {len(playlist)} canciones.\n"
+                    pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
+                        f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}"
+                        for i, x in enumerate(tplaylist)
+                        ])
+                else:
+                    pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
+                        f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}\n"
+                        for i, x in enumerate(playlist)
                     ])
-            else:
-                pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                    f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}\n"
-                    for i, x in enumerate(playlist)
-                ])
             if m.chat.type == "private":
                 await m.reply_text(pl, disable_web_page_preview=True)
             if EDIT_TITLE:
@@ -980,16 +980,16 @@ async def yt_play_list(client, m: Message):
             return
         if len(playlist)>=25:
             tplaylist=playlist[:25]
-                pl=f"Lista de las primeras 25 canciones del total de {len(playlist)} canciones.\n"
-                pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                    f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}"
-                    for i, x in enumerate(tplaylist)
-                    ])
-            else:
-                pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                    f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}\n"
-                    for i, x in enumerate(playlist)
+            pl=f"Lista de las primeras 25 canciones del total de {len(playlist)} canciones.\n"
+            pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
+                f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}"
+                for i, x in enumerate(tplaylist)
                 ])
+        else:
+            pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
+                f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}\n"
+                for i, x in enumerate(playlist)
+            ])
         if m.chat.type == "private":
             await m.reply_text(pl, disable_web_page_preview=True)
         if LOG_GROUP:
@@ -1222,16 +1222,16 @@ async def import_play_list(client, m: Message):
             return
         if len(playlist)>=25:
             tplaylist=playlist[:25]
-                pl=f"Lista de las primeras 25 canciones del total de {len(playlist)} canciones.\n"
-                pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                    f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}"
-                    for i, x in enumerate(tplaylist)
-                    ])
-            else:
-                pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
-                    f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}\n"
-                    for i, x in enumerate(playlist)
+            pl=f"Lista de las primeras 25 canciones del total de {len(playlist)} canciones.\n"
+            pl += f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
+                f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}"
+                for i, x in enumerate(tplaylist)
                 ])
+        else:
+            pl = f"{emoji.PLAY_BUTTON} **Playlist**:\n" + "\n".join([
+                f"**{i}**. **🎸{x[1]}**\n   👤**Solicitada por:** {x[4]}\n"
+                for i, x in enumerate(playlist)
+            ])
         if m.chat.type == "private":
             await m.reply_text(pl, disable_web_page_preview=True)
         if LOG_GROUP:
